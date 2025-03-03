@@ -2,10 +2,7 @@ import { useState } from "react";
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
 import colors from "./utils/colors";
-import CustomSelect from "./components/CustomSelect";
-import { MaterialIcons } from "@expo/vector-icons";
-import Globe from "./components/Globe";
-import SplashScreen from "./screens/SplashScreen";
+import AuthNavigator from "./navigation/AuthNavigator";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,17 +27,10 @@ export default function App() {
     );
   }
 
-  return <SplashScreen />;
+  return <AuthNavigator />;
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
   loadingContainer: {
     flex: 1,
     backgroundColor: colors.white,

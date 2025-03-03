@@ -5,8 +5,17 @@ import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 import CustomButton from "../components/CustomButton";
 import Globe from "../components/Globe";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigation/AuthNavigator";
+import { useNavigation } from "@react-navigation/native";
+
+type SplashScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Splash"
+>;
 
 const SplashScreen = () => {
+  const navigation = useNavigation<SplashScreenNavigationProp>();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -20,7 +29,7 @@ const SplashScreen = () => {
       <View style={styles.buttonContainer}>
         <CustomButton
           title="View Best Rate Now"
-          onPress={() => {}}
+          onPress={() => navigation.navigate("ExchangeRate")}
           width="100%"
           backgroundColor={colors.white}
           textColor={colors.deepBlue}
@@ -42,9 +51,7 @@ const SplashScreen = () => {
 
         <View style={styles.loginContainer}>
           <Text style={styles.loginText}>Already have an account? </Text>
-          <Text style={styles.loginLink} onPress={() => {}}>
-            Login
-          </Text>
+          <Text style={styles.loginLink}>Login</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.medium,
     fontSize: FONTSIZE.xxl,
     textAlign: "center",
-    marginTop: 30,
+    marginTop: 35,
     marginBottom: 37,
     color: colors.deepBlue,
     paddingHorizontal: 20,
