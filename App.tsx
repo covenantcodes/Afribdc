@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
 import colors from "./utils/colors";
-import CustomButton from "./components/CustomButton";
+import CustomInput from "./components/CustomInput";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,16 +30,33 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
-      <CustomButton
-        title="Press Me"
-        onPress={() => console.log("Button pressed")}
-        loading={false}
-        backgroundColor={colors.primaryColor}
-        textColor={colors.white}
-        borderRadius={25}
-        borderColor={colors.primaryColor}
-        borderWidth={1}
+      // Basic usage
+      <CustomInput label="Username" placeholder="Enter your username" />
+      // With icons and required field
+      <CustomInput
+        label="Email"
+        placeholder="Enter your email"
+        required
+        leftIcon={<MaterialIcons name="email" size={20} color={colors.gray} />}
+        rightIcon={
+          <MaterialIcons
+            name="check-circle"
+            size={20}
+            color={colors.primaryColor}
+          />
+        }
       />
+      // With error message
+      <CustomInput
+        label="Password"
+        placeholder="Enter your password"
+        secureTextEntry
+        required
+        showShadow
+        width="50%"
+        leftIcon={<MaterialIcons name="lock" size={20} color={colors.gray} />}
+      />
+      // With custom styles
     </View>
   );
 }
@@ -46,7 +64,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     alignItems: "center",
     justifyContent: "center",
   },

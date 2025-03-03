@@ -1,4 +1,3 @@
-import React from "react";
 import {
   TouchableOpacity,
   Text,
@@ -9,13 +8,14 @@ import {
   TextStyle,
 } from "react-native";
 import colors from "../utils/colors";
+import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 
 interface CustomButtonProps {
   onPress: () => void;
   title: string;
   loading?: boolean;
   disabled?: boolean;
-  style?: StyleProp<ViewStyle>; // Correct typing for style
+  style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   borderRadius?: number;
   backgroundColor?: string;
@@ -58,9 +58,9 @@ const CustomButton = ({
           backgroundColor: disabled ? colors.gray : backgroundColor,
           borderColor: borderColor,
           borderWidth: borderWidth,
-          width: width, // width is correctly passed here
+          width: width,
           height: height,
-        } as ViewStyle, // Cast it to ViewStyle to satisfy the type checker
+        } as ViewStyle,
         style,
       ]}
       activeOpacity={0.7}
@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   text: {
-    fontFamily: "JostMedium",
-    fontSize: 16,
+    fontFamily: FONTFAMILY.semibold,
+    fontSize: FONTSIZE.md,
   },
 });
 
