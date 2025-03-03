@@ -1,13 +1,13 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, Animated, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigation/AuthNavigator";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 import CustomButton from "../components/CustomButton";
 import Globe from "../components/Globe";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigation/AuthNavigator";
-import { useNavigation } from "@react-navigation/native";
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -16,17 +16,59 @@ type SplashScreenNavigationProp = NativeStackNavigationProp<
 
 const SplashScreen = () => {
   const navigation = useNavigation<SplashScreenNavigationProp>();
+
+  // Create animated values
+  const globeScale = new Animated.Value(0.3);
+  const subtitleOpacity = new Animated.Value(0);
+  const buttonsOpacity = new Animated.Value(0);
+
+  useEffect(() => {
+    // Sequence of animations
+    Animated.sequence([
+      // Globe scale animation
+      Animated.spring(globeScale, {
+        toValue: 1,
+        useNativeDriver: true,
+        tension: 10,
+        friction: 8,
+        velocity: 0.4,
+      }),
+      // Subtitle fade in
+      Animated.timing(subtitleOpacity, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+      // Buttons fade in
+      Animated.timing(buttonsOpacity, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Globe width={264} height={268} />
-        <Text style={styles.subtitle}>
+        <Animated.View style={[{ transform: [{ scale: globeScale }] }]}>
+          <Globe width={264} height={268} />
+        </Animated.View>
+
+        <Animated.Text style={[styles.subtitle, { opacity: subtitleOpacity }]}>
           Exchange currencies with ease and {"\n"} confidence, anytime,
           anywhere.
-        </Text>
+        </Animated.Text>
       </View>
 
-      <View style={styles.buttonContainer}>
+      <Animated.View
+        style={[
+          styles.buttonContainer,
+          {
+            opacity: buttonsOpacity,
+          },
+        ]}
+      >
         <CustomButton
           title="View Best Rate Now"
           onPress={() => navigation.navigate("ExchangeRate")}
@@ -42,7 +84,7 @@ const SplashScreen = () => {
 
         <CustomButton
           title="Get Started"
-          onPress={() => {}}
+          onPress={() => navigation.navigate("Register")}
           width="100%"
           borderRadius={20}
           height={58}
@@ -53,7 +95,7 @@ const SplashScreen = () => {
           <Text style={styles.loginText}>Already have an account? </Text>
           <Text style={styles.loginLink}>Login</Text>
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 };

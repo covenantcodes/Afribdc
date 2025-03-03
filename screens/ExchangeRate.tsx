@@ -1,11 +1,12 @@
-import React from "react";
 import { View, Text } from "react-native";
+import ScreenHeader from "../components/ScreenHeader";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const ExchangeRate = () => {
   return (
-    <View>
-      <Text>Hi</Text>
-    </View>
+    <SafeAreaView>
+      <ScreenHeader title="Exchange Rates" showBackButton />
+    </SafeAreaView>
   );
 };
 
