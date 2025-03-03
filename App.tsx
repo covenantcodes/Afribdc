@@ -1,10 +1,21 @@
+import { useState } from "react";
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
 import colors from "./utils/colors";
-import CustomInput from "./components/CustomInput";
+import CustomSelect from "./components/CustomSelect";
 import { MaterialIcons } from "@expo/vector-icons";
+import Globe from "./components/Globe";
 
 export default function App() {
+  const [selectedValue, setSelectedValue] = useState<
+    string | number | undefined
+  >(undefined);
+  const items = [
+    { label: "Option 1", value: "1" },
+    { label: "Option 2", value: "2" },
+    { label: "Option 3", value: "3" },
+  ];
+
   const [fontsLoaded] = useFonts({
     JostThin: require("./assets/fonts/Jost-Thin.ttf"),
     JostThinItalic: require("./assets/fonts/Jost-ThinItalic.ttf"),
@@ -29,34 +40,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      // Basic usage
-      <CustomInput label="Username" placeholder="Enter your username" />
-      // With icons and required field
-      <CustomInput
-        label="Email"
-        placeholder="Enter your email"
-        required
-        leftIcon={<MaterialIcons name="email" size={20} color={colors.gray} />}
-        rightIcon={
-          <MaterialIcons
-            name="check-circle"
-            size={20}
-            color={colors.primaryColor}
-          />
-        }
-      />
-      // With error message
-      <CustomInput
-        label="Password"
-        placeholder="Enter your password"
-        secureTextEntry
-        required
-        showShadow
-        width="50%"
-        leftIcon={<MaterialIcons name="lock" size={20} color={colors.gray} />}
-      />
-      // With custom styles
+      <Globe width={294} height={298} />
     </View>
   );
 }
