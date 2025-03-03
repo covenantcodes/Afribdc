@@ -4,11 +4,11 @@ import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 import CustomButton from "../components/CustomButton";
 import Globe from "../components/Globe";
-import SafeAreaView from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SplashScreen = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Globe width={264} height={268} />
         <Text style={styles.subtitle}>
@@ -19,19 +19,27 @@ const SplashScreen = () => {
 
       <View style={styles.buttonContainer}>
         <CustomButton
-          title="Create an Account"
-          onPress={() => {}}
-          width="100%"
-        />
-        <CustomButton
-          title="Learn More"
+          title="View Best Rate Now"
           onPress={() => {}}
           width="100%"
           backgroundColor={colors.white}
-          textColor={colors.primaryColor}
+          textColor={colors.deepBlue}
           borderWidth={1}
-          borderColor={colors.primaryColor}
+          borderRadius={20}
+          height={58}
+          borderColor={colors.deepBlue}
+          textStyle={{ fontSize: FONTSIZE.lg }}
         />
+
+        <CustomButton
+          title="Get Started"
+          onPress={() => {}}
+          width="100%"
+          borderRadius={20}
+          height={58}
+          textStyle={{ fontSize: FONTSIZE.lg }}
+        />
+
         <View style={styles.loginContainer}>
           <Text style={styles.loginText}>Already have an account? </Text>
           <Text style={styles.loginLink} onPress={() => {}}>
@@ -39,7 +47,7 @@ const SplashScreen = () => {
           </Text>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -59,31 +67,31 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.medium,
     fontSize: FONTSIZE.xxl,
     textAlign: "center",
-    marginTop: 24,
-    marginBottom: 32,
+    marginTop: 30,
+    marginBottom: 37,
     color: colors.deepBlue,
     paddingHorizontal: 20,
   },
   buttonContainer: {
     gap: 20,
-    marginTop: 15,
+    marginTop: 20,
     width: "100%",
   },
   loginContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 16,
+    marginTop: 13,
   },
   loginText: {
-    fontFamily: FONTFAMILY.regular,
-    fontSize: FONTSIZE.md,
-    color: colors.gray,
+    fontFamily: FONTFAMILY.medium,
+    fontSize: FONTSIZE.lg,
+    color: colors.deepBlue,
   },
   loginLink: {
     fontFamily: FONTFAMILY.medium,
-    fontSize: FONTSIZE.md,
-    color: colors.primaryColor,
+    fontSize: FONTSIZE.lg,
+    color: colors.blue,
   },
 });
 
