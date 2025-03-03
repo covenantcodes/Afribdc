@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
+import colors from "./utils/colors";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,7 +20,7 @@ export default function App() {
   if (!fontsLoaded) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="small" color="#0000ff" />
+        <ActivityIndicator size="small" color={colors.primaryColor} />
       </View>
     );
   }
@@ -34,14 +35,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
 
   loadingContainer: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
