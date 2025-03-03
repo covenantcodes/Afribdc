@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
 import colors from "./utils/colors";
+import CustomButton from "./components/CustomButton";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,6 +29,16 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
+      <CustomButton
+        title="Press Me"
+        onPress={() => console.log("Button pressed")}
+        loading={false}
+        backgroundColor={colors.primaryColor}
+        textColor={colors.white}
+        borderRadius={25}
+        borderColor={colors.primaryColor}
+        borderWidth={1}
+      />
     </View>
   );
 }
