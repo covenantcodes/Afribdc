@@ -5,17 +5,9 @@ import colors from "./utils/colors";
 import CustomSelect from "./components/CustomSelect";
 import { MaterialIcons } from "@expo/vector-icons";
 import Globe from "./components/Globe";
+import SplashScreen from "./screens/SplashScreen";
 
 export default function App() {
-  const [selectedValue, setSelectedValue] = useState<
-    string | number | undefined
-  >(undefined);
-  const items = [
-    { label: "Option 1", value: "1" },
-    { label: "Option 2", value: "2" },
-    { label: "Option 3", value: "3" },
-  ];
-
   const [fontsLoaded] = useFonts({
     JostThin: require("./assets/fonts/Jost-Thin.ttf"),
     JostThinItalic: require("./assets/fonts/Jost-ThinItalic.ttf"),
@@ -38,11 +30,7 @@ export default function App() {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <Globe width={294} height={298} />
-    </View>
-  );
+  return <SplashScreen />;
 }
 
 const styles = StyleSheet.create({
