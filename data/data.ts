@@ -1,6 +1,9 @@
+import { ImageSourcePropType } from "react-native";
+import images from "../utils/images";
+
 export interface ExchangeRateCardData {
     id: string;
-    profileImage: string;
+    profileImage: ImageSourcePropType;
     username: string;
     fromCurrency: string;
     toCurrency: string;
@@ -11,7 +14,7 @@ export interface ExchangeRateCardData {
   export const exchangeRateData: ExchangeRateCardData[] = [
     {
       id: '1',
-      profileImage: 'https://i.pravatar.cc/150?img=1',
+      profileImage: images.profilePic,
       username: 'John Doe',
       fromCurrency: 'USD',
       toCurrency: 'NGN',
@@ -20,7 +23,7 @@ export interface ExchangeRateCardData {
     },
     {
       id: '2',
-      profileImage: 'https://i.pravatar.cc/150?img=2',
+      profileImage: images.profilePic,
       username: 'Jane Smith',
       fromCurrency: 'EUR',
       toCurrency: 'NGN',
@@ -29,7 +32,7 @@ export interface ExchangeRateCardData {
     },
     {
       id: '3',
-      profileImage: 'https://i.pravatar.cc/150?img=3',
+      profileImage: images.profilePic,
       username: 'Robert Johnson',
       fromCurrency: 'GBP',
       toCurrency: 'NGN',
@@ -38,7 +41,7 @@ export interface ExchangeRateCardData {
     },
     {
       id: '4',
-      profileImage: 'https://i.pravatar.cc/150?img=4',
+      profileImage: images.profilePic,
       username: 'Sarah Williams',
       fromCurrency: 'USD',
       toCurrency: 'NGN',
@@ -47,7 +50,7 @@ export interface ExchangeRateCardData {
     },
     {
       id: '5',
-      profileImage: 'https://i.pravatar.cc/150?img=5',
+      profileImage: images.profilePic,
       username: 'Michael Brown',
       fromCurrency: 'EUR',
       toCurrency: 'NGN',

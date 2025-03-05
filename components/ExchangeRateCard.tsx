@@ -1,10 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageSourcePropType,
+} from "react-native";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 
 interface ExchangeRateCardProps {
-  profileImage: string;
+  profileImage: ImageSourcePropType;
   username: string;
   fromCurrency: string;
   toCurrency: string;
@@ -23,7 +29,7 @@ const ExchangeRateCard: React.FC<ExchangeRateCardProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.leftContent}>
-        <Image source={{ uri: profileImage }} style={styles.profileImage} />
+        <Image source={profileImage} style={styles.profileImage} />
         <View style={styles.userInfo}>
           <Text style={styles.username}>{username}</Text>
           <Text style={styles.rateText}>
@@ -43,8 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 16,
-    marginBottom: 12,
+    padding: 14,
   },
   leftContent: {
     flexDirection: "row",
@@ -71,8 +76,6 @@ const styles = StyleSheet.create({
   },
   badge: {
     paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
   },
   badgeText: {
     fontFamily: FONTFAMILY.medium,
