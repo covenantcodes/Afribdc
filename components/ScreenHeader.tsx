@@ -36,7 +36,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
     if (showBackButton) {
       return (
         <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-          <ChevronLeft width={30} height={30} />
+          <ChevronLeft width={27} height={27} />
         </TouchableOpacity>
       );
     }

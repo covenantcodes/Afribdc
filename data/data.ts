@@ -15,10 +15,10 @@ export interface ExchangeRateCardData {
     {
       id: '1',
       profileImage: images.profilePic,
-      username: 'John Doe',
+      username: 'Username',
       fromCurrency: 'USD',
-      toCurrency: 'NGN',
-      rate: 1200.50,
+      toCurrency: 'CAD',
+      rate: 1.43,
       type: 'buying',
     },
     {

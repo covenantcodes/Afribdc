@@ -37,7 +37,7 @@ const ExchangeRateCard: React.FC<ExchangeRateCardProps> = ({
           </Text>
         </View>
       </View>
-      <View style={styles.badge}>
+      <View>
         <Text style={styles.badgeText}>{type}</Text>
       </View>
     </View>
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     gap: 4,
+    marginLeft: 6,
   },
   username: {
     fontFamily: FONTFAMILY.medium,
@@ -72,10 +73,7 @@ const styles = StyleSheet.create({
   rateText: {
     fontFamily: FONTFAMILY.regular,
     fontSize: FONTSIZE.sm,
-    color: colors.gray,
-  },
-  badge: {
-    paddingHorizontal: 12,
+    color: colors.gray2,
   },
   badgeText: {
     fontFamily: FONTFAMILY.medium,
