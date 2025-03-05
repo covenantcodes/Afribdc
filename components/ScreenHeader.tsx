@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
+import ChevronLeft from "./ChevronLeft";
 
 interface ScreenHeaderProps {
   title?: string;
@@ -34,12 +35,8 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
     if (leftComponent) return leftComponent;
     if (showBackButton) {
       return (
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={handleBackPress}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        >
-          <Ionicons name="arrow-back" size={24} color={colors.deepBlue} />
+        <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+          <ChevronLeft width={30} height={30} />
         </TouchableOpacity>
       );
     }
@@ -69,8 +66,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   backButton: {
-    width: 40,
-    height: 40,
+    marginTop: 15,
     justifyContent: "center",
   },
   title: {
