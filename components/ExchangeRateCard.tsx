@@ -31,20 +31,8 @@ const ExchangeRateCard: React.FC<ExchangeRateCardProps> = ({
           </Text>
         </View>
       </View>
-      <View
-        style={[
-          styles.badge,
-          type === "buying" ? styles.buyingBadge : styles.sellingBadge,
-        ]}
-      >
-        <Text
-          style={[
-            styles.badgeText,
-            type === "buying" ? styles.buyingText : styles.sellingText,
-          ]}
-        >
-          {type}
-        </Text>
+      <View style={styles.badge}>
+        <Text style={styles.badgeText}>{type}</Text>
       </View>
     </View>
   );
@@ -56,17 +44,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 16,
-    backgroundColor: colors.white,
-    borderRadius: 12,
     marginBottom: 12,
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   leftContent: {
     flexDirection: "row",
@@ -96,21 +74,10 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 16,
   },
-  buyingBadge: {
-    backgroundColor: colors.primaryColor + "20",
-  },
-  sellingBadge: {
-    backgroundColor: colors.primaryColor + "20",
-  },
   badgeText: {
     fontFamily: FONTFAMILY.medium,
-    fontSize: FONTSIZE.sm,
+    fontSize: FONTSIZE.md,
     textTransform: "capitalize",
-  },
-  buyingText: {
-    color: colors.primaryColor,
-  },
-  sellingText: {
     color: colors.primaryColor,
   },
 });
