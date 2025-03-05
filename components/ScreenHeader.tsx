@@ -51,7 +51,11 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   return (
     <View style={styles.container}>
       {renderLeft()}
-      {title && <Text style={styles.title}>{title}</Text>}
+      {title && (
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{title}</Text>
+        </View>
+      )}
       {renderRight()}
     </View>
   );
@@ -66,7 +70,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   backButton: {
-    marginTop: 15,
+    justifyContent: "center",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
   },
   title: {
