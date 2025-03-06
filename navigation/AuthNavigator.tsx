@@ -5,6 +5,7 @@ import ExchangeRate from "../screens/ExchangeRate";
 import EnterPhone from "../screens/Auth/EnterPhone";
 import Login from "../screens/Auth/Login";
 import VerifyPhone from "../screens/Auth/VerifyPhone";
+import VerifyEmail from "../screens/Auth/VerifyEmail";
 import Register from "../screens/Auth/Register";
 
 export type RootStackParamList = {
@@ -16,6 +17,9 @@ export type RootStackParamList = {
   VerifyPhone: {
     phoneNumber: string;
     countryCode: string;
+  };
+  VerifyEmail: {
+    email: string;
   };
 };
 
@@ -40,6 +44,7 @@ export default function AppNavigator() {
         <Stack.Screen name="Register" component={Register} />
 
         <Stack.Screen name="VerifyPhone" component={VerifyPhone} />
+        <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -31,17 +31,99 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  const handleSignup = () => {};
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      setErrors((prev) => ({ ...prev, email: "Email is required" }));
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      setErrors((prev) => ({ ...prev, email: "Please enter a valid email" }));
+      return false;
+    }
+    setErrors((prev) => ({ ...prev, email: "" }));
+    return true;
+  };
+
+  const validatePassword = (password: string) => {
+    if (!password) {
+      setErrors((prev) => ({ ...prev, password: "Password is required" }));
+      return false;
+    }
+    if (password.length < 8) {
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password must be at least 8 characters",
+      }));
+      return false;
+    }
+    // Add more password requirements as needed
+    setErrors((prev) => ({ ...prev, password: "" }));
+    return true;
+  };
+
+  const validateConfirmPassword = (confirmPass: string) => {
+    if (!confirmPass) {
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Please confirm your password",
+      }));
+      return false;
+    }
+    if (confirmPass !== password) {
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Passwords do not match",
+      }));
+      return false;
+    }
+    setErrors((prev) => ({ ...prev, confirmPassword: "" }));
+    return true;
+  };
+
+  const handleSignup = () => {
+    // Validate all fields
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
+    const isConfirmPasswordValid = validateConfirmPassword(confirmPassword);
+
+    if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+      // Proceed with signup
+      navigation.navigate("VerifyEmail", {
+        email: email,
+      });
+    }
+  };
+
+  // Update the onChangeText handlers to validate on change
+  const handleEmailChange = (text: string) => {
+    setEmail(text);
+    validateEmail(text);
+  };
+
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    validatePassword(text);
+    if (confirmPassword) {
+      validateConfirmPassword(confirmPassword);
+    }
+  };
+
+  const handleConfirmPasswordChange = (text: string) => {
+    setConfirmPassword(text);
+    validateConfirmPassword(text);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScreenHeader showBackButton />
       <View style={styles.content}>
-        <Text style={styles.title}>Create Account</Text>
+        <Text style={styles.title}>Create your account</Text>
 
         <CustomInput
+          label="Email"
           value={email}
-          onChangeText={setEmail}
+          onChangeText={handleEmailChange}
           placeholder="Email"
           leftIcon={
             <MaterialCommunityIcons
@@ -51,25 +133,22 @@ const Register = () => {
             />
           }
           errorMessage={errors.email}
+          showShadow
         />
 
         <CustomInput
+          label="Username"
           value={username}
           onChangeText={setUsername}
-          placeholder="Username"
-          leftIcon={
-            <MaterialCommunityIcons
-              name="account-outline"
-              size={20}
-              color={colors.gray2}
-            />
-          }
+          placeholder="Enter unique username"
           errorMessage={errors.username}
+          showShadow
         />
 
         <CustomInput
+          label="Create Password"
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePasswordChange}
           placeholder="Create Password"
           leftIcon={
             <MaterialCommunityIcons
@@ -89,11 +168,13 @@ const Register = () => {
           }
           secureTextEntry={!showPassword}
           errorMessage={errors.password}
+          showShadow
         />
 
         <CustomInput
+          label="Confirm Password"
           value={confirmPassword}
-          onChangeText={setConfirmPassword}
+          onChangeText={handleConfirmPasswordChange}
           placeholder="Confirm Password"
           leftIcon={
             <MaterialCommunityIcons
@@ -115,6 +196,7 @@ const Register = () => {
           }
           secureTextEntry={!showConfirmPassword}
           errorMessage={errors.confirmPassword}
+          showShadow
         />
 
         <View style={styles.buttonContainer}>
