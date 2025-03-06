@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../../utils/fonts";
 import ScreenHeader from "../../components/ScreenHeader";
+import CustomButton from "../../components/CustomButton";
 
 // Import the Country type from PhoneInput
 interface Country {
@@ -33,16 +34,22 @@ const EnterPhone = () => {
       <ScreenHeader showBackButton />
       <View style={styles.content}>
         <Text style={styles.title}>Enter Phone Number</Text>
-        <Text style={styles.subtitle}>
-          Please enter your phone number to continue
-        </Text>
+        <Text style={styles.subtitle}>We'll send you a verification code</Text>
+        <PhoneInput
+          value={phoneNumber}
+          onChangePhone={setPhoneNumber}
+          onChangeCountry={handleCountryChange}
+          error={error}
+        />
 
-        <View style={styles.phoneInputContainer}>
-          <PhoneInput
-            value={phoneNumber}
-            onChangePhone={setPhoneNumber}
-            onChangeCountry={handleCountryChange}
-            error={error}
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            title="Continue"
+            onPress={() => {}}
+            width="100%"
+            borderRadius={25}
+            height={58}
+            textStyle={{ fontSize: FONTSIZE.lg }}
           />
         </View>
       </View>
@@ -51,28 +58,35 @@ const EnterPhone = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background },
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
   content: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: 25,
+    marginTop: -120,
   },
   title: {
-    fontSize: FONTSIZE.xl,
-    fontFamily: FONTFAMILY.bold,
-    color: colors.black,
+    fontSize: FONTSIZE.xxxl,
+    fontFamily: FONTFAMILY.medium,
+    color: colors.deepBlue,
     marginBottom: 8,
+    textAlign: "center",
   },
   subtitle: {
-    fontSize: FONTSIZE.md,
-    fontFamily: FONTFAMILY.regular,
-    color: colors.gray3,
+    fontSize: FONTSIZE.lg,
+    fontFamily: FONTFAMILY.medium,
+    color: colors.gray2,
     marginBottom: 24,
+    textAlign: "center",
   },
 
-  phoneInputContainer: {
+  buttonContainer: {
     width: "100%",
-    paddingHorizontal: 25,
+    marginTop: 40,
   },
 });
 

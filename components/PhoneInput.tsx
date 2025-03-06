@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,13 +7,15 @@ import {
   Modal,
   Image,
   FlatList,
+  TouchableHighlight,
+  Pressable,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 import CustomKeyboard from "./CustomKeyboard";
-
 import countryData from "../data/countries_flags_codes.json";
+import ChevronDown from "./svgs/ChevronDown";
 
 interface Country {
   flags: {
@@ -40,11 +42,15 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   value,
   error,
 }) => {
+  const defaultCountry =
+    countryData.find(
+      (country) => country.idd.root === "+1" && country.idd.suffixes[0] === ""
+    ) || countryData[0];
   const [isCountryModalVisible, setIsCountryModalVisible] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<Country>(
-    countryData[0]
-  );
+  const [selectedCountry, setSelectedCountry] =
+    useState<Country>(defaultCountry);
+  const [showCursor, setShowCursor] = useState(true);
 
   const formatPhoneNumber = (number: string) => {
     if (number.length <= 3) return number;
@@ -54,6 +60,14 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
       10
     )}`;
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleKeyPress = (key: string) => {
     if (key === "delete") {
@@ -83,17 +97,20 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
           {selectedCountry.idd.root}
           {selectedCountry.idd.suffixes[0]}
         </Text>
-        <MaterialIcons name="arrow-drop-down" size={24} color={colors.gray3} />
+        <ChevronDown width={16} height={16} color={colors.gray2} />
       </TouchableOpacity>
-
-      <TouchableOpacity
+      <Pressable
         style={[styles.phoneInput, error ? styles.inputError : null]}
         onPress={() => setIsKeyboardVisible(true)}
       >
         <Text style={styles.phoneText}>
-          {value ? formatPhoneNumber(value) : "(506) 210-0661"}
+          {value
+            ? `${formatPhoneNumber(value)}${
+                showCursor && isKeyboardVisible ? "|" : ""
+              }`
+            : `(506) 210-0661${showCursor && isKeyboardVisible ? "|" : ""}`}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <Modal
         visible={isCountryModalVisible}
@@ -159,8 +176,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.white,
-    borderRadius: 8,
-    padding: 12,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 18,
     gap: 6,
     shadowColor: "#1a1a1a",
     shadowOffset: {
@@ -177,15 +195,16 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   countryCode: {
-    fontFamily: FONTFAMILY.medium,
+    fontFamily: FONTFAMILY.regular,
     fontSize: FONTSIZE.md,
-    color: colors.black,
+    color: colors.gray2,
   },
   phoneInput: {
     flex: 3,
     backgroundColor: colors.white,
-    borderRadius: 8,
+    borderRadius: 10,
     padding: 12,
+    justifyContent: "center",
     shadowColor: "#1a1a1a",
     shadowOffset: {
       width: 0,
@@ -202,7 +221,8 @@ const styles = StyleSheet.create({
   phoneText: {
     fontFamily: FONTFAMILY.regular,
     fontSize: FONTSIZE.md,
-    color: colors.black,
+    color: colors.gray2,
+    letterSpacing: 1,
   },
   modalContainer: {
     flex: 1,

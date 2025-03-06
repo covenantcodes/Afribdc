@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
+  Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../utils/colors";
@@ -13,28 +14,39 @@ import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 interface CustomKeyboardProps {
   onKeyPress: (key: string) => void;
   containerStyle?: StyleProp<ViewStyle>;
+  onOutsidePress?: () => void;
 }
 
 const CustomKeyboard: React.FC<CustomKeyboardProps> = ({
   onKeyPress,
   containerStyle,
+  onOutsidePress,
 }) => {
   const renderKey = (value: string) => (
-    <TouchableOpacity
-      style={styles.key}
-      onPress={() => onKeyPress(value)}
-      activeOpacity={0.7}
-    >
-      {value === "delete" ? (
-        <Ionicons name="backspace-outline" size={26} color={colors.black} />
-      ) : (
-        <Text style={styles.keyText}>{value}</Text>
-      )}
-    </TouchableOpacity>
+    <View style={styles.keyWrapper}>
+      <Pressable
+        style={({ pressed }) => [styles.key, pressed && styles.keyPressed]}
+        onPress={() => onKeyPress(value)}
+        android_ripple={{
+          color: colors.gray + "20",
+          borderless: true,
+          radius: 35,
+        }}
+      >
+        {value === "delete" ? (
+          <Ionicons name="backspace-outline" size={26} color={colors.black} />
+        ) : (
+          <Text style={styles.keyText}>{value}</Text>
+        )}
+      </Pressable>
+    </View>
   );
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <Pressable
+      onPress={onOutsidePress}
+      style={[styles.container, containerStyle]}
+    >
       <View style={styles.row}>
         {renderKey("1")}
         {renderKey("2")}
@@ -55,7 +67,7 @@ const CustomKeyboard: React.FC<CustomKeyboardProps> = ({
         {renderKey("0")}
         {renderKey("delete")}
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -69,12 +81,23 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginBottom: 10,
   },
-  key: {
+  keyWrapper: {
     width: 70,
     height: 70,
     justifyContent: "center",
     alignItems: "center",
+    overflow: "hidden",
+    borderRadius: 35,
+  },
+  key: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.background,
+  },
+  keyPressed: {
+    backgroundColor: colors.gray2 + "20",
   },
   keyText: {
     fontSize: FONTSIZE.xl,

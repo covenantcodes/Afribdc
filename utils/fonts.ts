@@ -14,6 +14,7 @@ export const FONTFAMILY = {
     lg: 20,
     xl: 24,
     xxl: 32,
+    xxxl: 36
   };
   
   export const LINEHEIGHT = {

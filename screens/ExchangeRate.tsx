@@ -127,7 +127,7 @@ const ExchangeRate = () => {
             title="Get Started"
             onPress={() => navigation.navigate("EnterPhone")}
             width="100%"
-            borderRadius={20}
+            borderRadius={25}
             height={58}
             textStyle={{ fontSize: FONTSIZE.lg }}
           />
