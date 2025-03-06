@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
-import ChevronLeft from "./ChevronLeft";
+import ChevronLeft from "./svgs/ChevronLeft";
 
 interface ScreenHeaderProps {
   title?: string;

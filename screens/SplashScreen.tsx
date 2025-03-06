@@ -1,5 +1,12 @@
-import React, { useEffect } from "react";
-import { View, Text, Animated, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Animated,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -7,7 +14,7 @@ import { RootStackParamList } from "../navigation/AuthNavigator";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 import CustomButton from "../components/CustomButton";
-import Globe from "../components/Globe";
+import Globe from "../components/svgs/Globe";
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -84,7 +91,7 @@ const SplashScreen = () => {
 
         <CustomButton
           title="Get Started"
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("EnterPhone")}
           width="100%"
           borderRadius={20}
           height={58}
@@ -93,7 +100,9 @@ const SplashScreen = () => {
 
         <View style={styles.loginContainer}>
           <Text style={styles.loginText}>Already have an account? </Text>
-          <Text style={styles.loginLink}>Login</Text>
+          <TouchableOpacity>
+            <Text style={styles.loginLink}>Login</Text>
+          </TouchableOpacity>
         </View>
       </Animated.View>
     </SafeAreaView>

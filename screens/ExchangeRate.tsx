@@ -125,7 +125,7 @@ const ExchangeRate = () => {
         >
           <CustomButton
             title="Get Started"
-            onPress={() => navigation.navigate("Register")}
+            onPress={() => navigation.navigate("EnterPhone")}
             width="100%"
             borderRadius={20}
             height={58}
