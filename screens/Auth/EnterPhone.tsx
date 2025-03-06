@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: -120,
   },
   title: {
-    fontSize: FONTSIZE.xxxl,
+    fontSize: FONTSIZE.xxl,
     fontFamily: FONTFAMILY.medium,
     color: colors.deepBlue,
     marginBottom: 8,
@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.lg,
     fontFamily: FONTFAMILY.medium,
     color: colors.gray2,
-    marginBottom: 24,
+    marginTop: 5,
+    marginBottom: 32,
     textAlign: "center",
   },
 

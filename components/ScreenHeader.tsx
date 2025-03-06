@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: -40,
+    marginLeft: -43,
   },
   title: {
     fontFamily: FONTFAMILY.regular,

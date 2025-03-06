@@ -28,6 +28,7 @@ const VerifyPhone = () => {
           {"\n"} Enter this code below
         </Text>
 
+        <View></View>
         <CustomOtpInput
           length={6}
           value={otp}
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   subtitle: {
-    fontSize: FONTSIZE.lg,
+    fontSize: FONTSIZE.md,
     fontFamily: FONTFAMILY.medium,
     color: colors.gray2,
     marginVertical: 38,

@@ -6,6 +6,7 @@ import {
   Text,
   Animated,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import ScreenHeader from "../components/ScreenHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -98,7 +99,7 @@ const ExchangeRate = () => {
     <SafeAreaView style={styles.container}>
       <ScreenHeader title="Exchange Rates" showBackButton />
 
-      <View style={styles.body}>
+      <ScrollView style={styles.body}>
         <Animated.View
           style={[
             styles.subTextContainer,
@@ -147,7 +148,7 @@ const ExchangeRate = () => {
             </TouchableOpacity>
           </View>
         </Animated.View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -173,9 +174,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   subText: {
-    marginTop: 16,
     fontFamily: FONTFAMILY.regular,
-    fontSize: FONTSIZE.xl,
+    fontSize: FONTSIZE.lg,
   },
   ctaContainer: {
     paddingVertical: 28,
