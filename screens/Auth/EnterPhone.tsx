@@ -44,7 +44,12 @@ const EnterPhone = () => {
       return;
     }
     setError("");
-    navigation.navigate("VerifyPhone");
+    navigation.navigate("VerifyPhone", {
+      phoneNumber: phoneNumber,
+      countryCode:
+        selectedCountry?.idd.root + (selectedCountry?.idd.suffixes[0] || "") ||
+        "+1",
+    });
   };
 
   return (
@@ -70,7 +75,7 @@ const EnterPhone = () => {
             width="100%"
             borderRadius={25}
             height={58}
-            textStyle={{ fontSize: FONTSIZE.lg }}
+            textStyle={{ fontSize: FONTSIZE.md }}
           />
         </View>
       </View>

@@ -137,7 +137,7 @@ const ExchangeRate = () => {
             width="100%"
             borderRadius={25}
             height={58}
-            textStyle={{ fontSize: FONTSIZE.lg }}
+            textStyle={{ fontSize: FONTSIZE.md }}
           />
 
           <View style={styles.loginContainer}>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     fontFamily: FONTFAMILY.medium,
-    fontSize: FONTSIZE.lg,
+    fontSize: FONTSIZE.md,
     color: colors.blue,
   },
 });

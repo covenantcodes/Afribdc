@@ -5,6 +5,7 @@ import ExchangeRate from "../screens/ExchangeRate";
 import EnterPhone from "../screens/Auth/EnterPhone";
 import Login from "../screens/Auth/Login";
 import VerifyPhone from "../screens/Auth/VerifyPhone";
+import Register from "../screens/Auth/Register";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -12,7 +13,10 @@ export type RootStackParamList = {
   Register: undefined;
   Login: undefined;
   EnterPhone: undefined;
-  VerifyPhone: undefined;
+  VerifyPhone: {
+    phoneNumber: string;
+    countryCode: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,6 +36,8 @@ export default function AppNavigator() {
         <Stack.Screen name="ExchangeRate" component={ExchangeRate} />
 
         <Stack.Screen name="Login" component={Login} />
+
+        <Stack.Screen name="Register" component={Register} />
 
         <Stack.Screen name="VerifyPhone" component={VerifyPhone} />
       </Stack.Navigator>

@@ -116,11 +116,11 @@ const styles = StyleSheet.create({
   otpContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 20,
+    gap: 12,
   },
   otpBox: {
-    width: 56,
-    height: 66,
+    width: 46,
+    height: 56,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
