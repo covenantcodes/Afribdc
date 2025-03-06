@@ -1,4 +1,5 @@
-import { View, FlatList, StyleSheet, Text } from "react-native";
+import { useRef, useEffect } from "react";
+import { View, FlatList, StyleSheet, Text, Animated } from "react-native";
 import ScreenHeader from "../components/ScreenHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -18,15 +19,72 @@ type SplashScreenNavigationProp = NativeStackNavigationProp<
 const ExchangeRate = () => {
   const navigation = useNavigation<SplashScreenNavigationProp>();
 
-  const renderItem = ({ item }: { item: ExchangeRateCardData }) => (
-    <ExchangeRateCard
-      profileImage={item.profileImage}
-      username={item.username}
-      fromCurrency={item.fromCurrency}
-      toCurrency={item.toCurrency}
-      rate={item.rate}
-      type={item.type}
-    />
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(50)).current;
+  const listItemAnimations = useRef<Animated.Value[]>(
+    exchangeRateData.map(() => new Animated.Value(0))
+  ).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      // Header animations
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.spring(slideAnim, {
+          toValue: 0,
+          tension: 50,
+          friction: 7,
+          useNativeDriver: true,
+        }),
+      ]),
+      // Staggered animations for list items
+      Animated.stagger(
+        100,
+        listItemAnimations.map((anim) =>
+          Animated.spring(anim, {
+            toValue: 1,
+            tension: 50,
+            friction: 7,
+            useNativeDriver: true,
+          })
+        )
+      ),
+    ]).start();
+  }, []);
+
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: ExchangeRateCardData;
+    index: number;
+  }) => (
+    <Animated.View
+      style={{
+        opacity: listItemAnimations[index],
+        transform: [
+          {
+            translateY: listItemAnimations[index].interpolate({
+              inputRange: [0, 1],
+              outputRange: [50, 0],
+            }),
+          },
+        ],
+      }}
+    >
+      <ExchangeRateCard
+        profileImage={item.profileImage}
+        username={item.username}
+        fromCurrency={item.fromCurrency}
+        toCurrency={item.toCurrency}
+        rate={item.rate}
+        type={item.type}
+      />
+    </Animated.View>
   );
 
   return (
@@ -34,9 +92,17 @@ const ExchangeRate = () => {
       <ScreenHeader title="Exchange Rates" showBackButton />
 
       <View style={styles.body}>
-        <View style={styles.subTextContainer}>
+        <Animated.View
+          style={[
+            styles.subTextContainer,
+            {
+              opacity: fadeAnim,
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
+        >
           <Text style={styles.subText}>Live exchange rates</Text>
-        </View>
+        </Animated.View>
 
         <View style={styles.listMainContainer}>
           <FlatList
@@ -48,7 +114,15 @@ const ExchangeRate = () => {
           />
         </View>
 
-        <View style={styles.ctaContainer}>
+        <Animated.View
+          style={[
+            styles.ctaContainer,
+            {
+              opacity: fadeAnim,
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
+        >
           <CustomButton
             title="Get Started"
             onPress={() => navigation.navigate("Register")}
@@ -62,7 +136,7 @@ const ExchangeRate = () => {
             <Text style={styles.loginText}>Already have an account? </Text>
             <Text style={styles.loginLink}>Login</Text>
           </View>
-        </View>
+        </Animated.View>
       </View>
     </SafeAreaView>
   );
