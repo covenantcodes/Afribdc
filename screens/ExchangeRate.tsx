@@ -1,5 +1,12 @@
 import { useRef, useEffect } from "react";
-import { View, FlatList, StyleSheet, Text, Animated } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  Animated,
+  TouchableOpacity,
+} from "react-native";
 import ScreenHeader from "../components/ScreenHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -11,13 +18,13 @@ import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 import CustomButton from "../components/CustomButton";
 
-type SplashScreenNavigationProp = NativeStackNavigationProp<
+type ExchangeRateNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  "Splash"
+  "ExchangeRate"
 >;
 
 const ExchangeRate = () => {
-  const navigation = useNavigation<SplashScreenNavigationProp>();
+  const navigation = useNavigation<ExchangeRateNavigationProp>();
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
@@ -134,7 +141,10 @@ const ExchangeRate = () => {
 
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Already have an account? </Text>
-            <Text style={styles.loginLink}>Login</Text>
+
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text style={styles.loginLink}>Login</Text>
+            </TouchableOpacity>
           </View>
         </Animated.View>
       </View>

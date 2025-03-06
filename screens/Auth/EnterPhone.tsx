@@ -6,6 +6,9 @@ import colors from "../../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../../utils/fonts";
 import ScreenHeader from "../../components/ScreenHeader";
 import CustomButton from "../../components/CustomButton";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../navigation/AuthNavigator";
 
 // Import the Country type from PhoneInput
 interface Country {
@@ -20,13 +23,28 @@ interface Country {
   };
 }
 
+type EnterPhoneNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "EnterPhone"
+>;
+
 const EnterPhone = () => {
+  const navigation = useNavigation<EnterPhoneNavigationProp>();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [error, setError] = useState("");
 
   const handleCountryChange = (country: Country) => {
     setSelectedCountry(country);
+  };
+
+  const handleContinue = () => {
+    if (!phoneNumber || phoneNumber.length < 10) {
+      setError("Please enter a valid phone number");
+      return;
+    }
+    setError("");
+    navigation.navigate("VerifyPhone");
   };
 
   return (
@@ -37,7 +55,10 @@ const EnterPhone = () => {
         <Text style={styles.subtitle}>We'll send you a verification code</Text>
         <PhoneInput
           value={phoneNumber}
-          onChangePhone={setPhoneNumber}
+          onChangePhone={(value) => {
+            setPhoneNumber(value);
+            setError(""); // Clear error when user starts typing
+          }}
           onChangeCountry={handleCountryChange}
           error={error}
         />
@@ -45,7 +66,7 @@ const EnterPhone = () => {
         <View style={styles.buttonContainer}>
           <CustomButton
             title="Continue"
-            onPress={() => {}}
+            onPress={handleContinue}
             width="100%"
             borderRadius={25}
             height={58}

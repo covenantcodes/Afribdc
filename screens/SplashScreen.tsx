@@ -5,7 +5,7 @@ import {
   Animated,
   StyleSheet,
   TouchableOpacity,
-  Modal,
+  Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -14,6 +14,7 @@ import { RootStackParamList } from "../navigation/AuthNavigator";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 import CustomButton from "../components/CustomButton";
+import CustomKeyboard from "../components/CustomKeyboard";
 import Globe from "../components/svgs/Globe";
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<
@@ -23,6 +24,17 @@ type SplashScreenNavigationProp = NativeStackNavigationProp<
 
 const SplashScreen = () => {
   const navigation = useNavigation<SplashScreenNavigationProp>();
+  const [showKeyboard, setShowKeyboard] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const { width, height } = Dimensions.get("window");
+
+  const handleKeyPress = (key: string) => {
+    if (key === "delete") {
+      setInputValue((prev) => prev.slice(0, -1));
+    } else {
+      setInputValue((prev) => prev + key);
+    }
+  };
 
   // Create animated values
   const globeScale = new Animated.Value(0.3);
@@ -59,12 +71,14 @@ const SplashScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Animated.View style={[{ transform: [{ scale: globeScale }] }]}>
-          <Globe width={264} height={268} />
+          <Globe width={width * 0.7} height={height * 0.3} />
         </Animated.View>
 
         <Animated.Text style={[styles.subtitle, { opacity: subtitleOpacity }]}>
-          Exchange currencies with ease and {"\n"} confidence, anytime,
-          anywhere.
+          <Text>
+            Exchange currencies with ease and{"\n"} confidence, anytime,
+            anywhere.
+          </Text>
         </Animated.Text>
       </View>
 
@@ -83,24 +97,24 @@ const SplashScreen = () => {
           backgroundColor={colors.white}
           textColor={colors.deepBlue}
           borderWidth={1}
-          borderRadius={25}
+          borderRadius={20}
           height={58}
           borderColor={colors.deepBlue}
-          textStyle={{ fontSize: FONTSIZE.lg }}
+          textStyle={{ fontSize: FONTSIZE.md }}
         />
 
         <CustomButton
           title="Get Started"
           onPress={() => navigation.navigate("EnterPhone")}
           width="100%"
-          borderRadius={25}
+          borderRadius={20}
           height={58}
-          textStyle={{ fontSize: FONTSIZE.lg }}
+          textStyle={{ fontSize: FONTSIZE.md }}
         />
 
         <View style={styles.loginContainer}>
           <Text style={styles.loginText}>Already have an account? </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text style={styles.loginLink}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -123,12 +137,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: FONTFAMILY.medium,
-    fontSize: FONTSIZE.xxl,
+    fontSize: FONTSIZE.xl,
     textAlign: "center",
     marginTop: 35,
     marginBottom: 37,
     color: colors.deepBlue,
-    paddingHorizontal: 20,
   },
   buttonContainer: {
     gap: 20,
@@ -143,12 +156,12 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontFamily: FONTFAMILY.medium,
-    fontSize: FONTSIZE.lg,
+    fontSize: FONTSIZE.md,
     color: colors.deepBlue,
   },
   loginLink: {
     fontFamily: FONTFAMILY.medium,
-    fontSize: FONTSIZE.lg,
+    fontSize: FONTSIZE.md,
     color: colors.blue,
   },
 });
