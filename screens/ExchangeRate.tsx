@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     fontFamily: FONTFAMILY.medium,
-    fontSize: FONTSIZE.md,
+    fontSize: FONTSIZE.lg,
     color: colors.blue,
   },
 });

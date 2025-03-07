@@ -31,7 +31,7 @@ type ExchangeRateCardData = {
   fromCurrency: string;
   toCurrency: string;
   rate: number;
-  type: string;
+  type: "buying" | "selling";
 };
 
 const Home = () => {

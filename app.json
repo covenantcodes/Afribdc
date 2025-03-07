@@ -19,10 +19,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.covenantcodes.Afribdc"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5d55591d-a1c0-44e8-be8d-45c16fe19a85"
+      }
+    },
+    "owner": "covenantcodes"
   }
 }

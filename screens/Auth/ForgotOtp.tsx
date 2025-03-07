@@ -27,6 +27,7 @@ export type RootStackParamList = {
   ForgotOtp: {
     email: string;
   };
+  ResetPassword: undefined;
 };
 
 const ForgotOtp = () => {

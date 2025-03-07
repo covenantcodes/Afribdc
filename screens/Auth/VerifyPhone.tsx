@@ -16,12 +16,17 @@ import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import type { RouteProp } from "@react-navigation/native";
 import type { RootStackParamList } from "../../navigation/AuthNavigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type VerifyPhoneScreenRouteProp = RouteProp<RootStackParamList, "VerifyPhone">;
+type VerifyPhoneNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "VerifyPhone"
+>;
 
 const VerifyPhone = () => {
   const route = useRoute<VerifyPhoneScreenRouteProp>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<VerifyPhoneNavigationProp>();
   const { phoneNumber, countryCode } = route.params;
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
