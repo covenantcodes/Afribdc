@@ -33,7 +33,9 @@ export type RootStackParamList = {
     email: string;
   };
 
-  ForgotPassword: undefined;
+  ForgotPassword: {
+    email: string;
+  };
   ResetPassword: undefined;
   PersonalInfo: undefined;
   SetUpPin: undefined;

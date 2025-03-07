@@ -120,7 +120,7 @@ const Login = () => {
 
         <TouchableOpacity
           style={styles.forgotPassword}
-          onPress={() => navigation.navigate("ForgotPassword")}
+          onPress={() => navigation.navigate("ForgotOtp", { email })}
         >
           <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
         </TouchableOpacity>

@@ -63,7 +63,7 @@ const ForgotOtp = () => {
       return;
     }
 
-    navigation.navigate("PersonalInfo");
+    navigation.navigate("ResetPassword");
   };
 
   const formatTime = (seconds: number) => {
@@ -74,12 +74,11 @@ const ForgotOtp = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScreenHeader title="Verify Email" showBackButton />
+      <ScreenHeader title="Reset Password" showBackButton />
       <ScrollView style={styles.content}>
-        <Text style={styles.title}>Please verify your email address</Text>
+        <Text style={styles.title}>Enter Code</Text>
         <Text style={styles.subtitle}>
-          We have sent a 6-digit verification code to {"\n"} {email} {"\n"}
-          Enter this code below
+          We have sent an OTP verification code to {"\n"} {email} {"\n"}
         </Text>
 
         <View style={styles.otpContainer}>
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: FONTSIZE.xxl,
-    fontFamily: FONTFAMILY.medium,
+    fontFamily: FONTFAMILY.regular,
     color: colors.deepBlue,
     marginBottom: 8,
     textAlign: "center",

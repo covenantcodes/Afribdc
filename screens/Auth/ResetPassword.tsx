@@ -75,9 +75,7 @@ const ResetPassword = () => {
     <SafeAreaView style={styles.container}>
       <ScreenHeader title="Reset Password" showBackButton />
       <View style={styles.content}>
-        <Text style={styles.subtitle}>
-          Your new password must be different from the previous password
-        </Text>
+        <Text style={styles.subtitle}>Enter your new password below</Text>
 
         <CustomInput
           label="New Password"
@@ -148,6 +146,20 @@ const ResetPassword = () => {
             height={58}
             textStyle={{ fontSize: FONTSIZE.lg }}
           />
+
+          <CustomButton
+            title="Cancel"
+            onPress={() => navigation.navigate("ExchangeRate")}
+            width="100%"
+            backgroundColor={colors.white}
+            textColor={colors.deepBlue}
+            borderWidth={1}
+            borderRadius={20}
+            height={58}
+            borderColor={colors.deepBlue}
+            textStyle={{ fontSize: FONTSIZE.md }}
+            style={{ marginTop: 40 }}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -165,9 +177,9 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   subtitle: {
-    fontSize: FONTSIZE.md,
-    fontFamily: FONTFAMILY.regular,
-    color: colors.gray2,
+    fontSize: FONTSIZE.xl,
+    fontFamily: FONTFAMILY.medium,
+    color: colors.deepBlue,
     marginBottom: 32,
     textAlign: "center",
   },
