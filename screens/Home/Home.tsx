@@ -87,7 +87,12 @@ const Home = () => {
         >
           <View style={styles.balanceContainer}>
             <View style={styles.walletContainer}>
-              <Wallet width={50} height={50} fillColor={colors.white} />
+              <Wallet
+                width={50}
+                height={50}
+                fillColor={colors.white}
+                strokeWidth={5}
+              />
             </View>
 
             <View style={styles.balanceInfo}>
@@ -203,7 +208,7 @@ const styles = StyleSheet.create({
   },
 
   actionButtonContainer: {
-    width: "60%",
+    width: "56.2%",
     paddingVertical: 10,
     paddingHorizontal: 20,
   },

@@ -44,7 +44,12 @@ const BottomTabNavigator = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
-            <HomeIcon width={24} height={24} fillColor={color} />
+            <HomeIcon
+              width={24}
+              height={24}
+              fillColor={color}
+              strokeWidth={2}
+            />
           ),
         }}
       />
@@ -54,7 +59,12 @@ const BottomTabNavigator = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
-            <WalletIcon width={30} height={30} fillColor={color} />
+            <WalletIcon
+              width={30}
+              height={30}
+              fillColor={color}
+              strokeWidth={8}
+            />
           ),
         }}
       />
@@ -74,7 +84,12 @@ const BottomTabNavigator = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
-            <CardIcon width={30} height={30} fillColor={color} />
+            <CardIcon
+              width={30}
+              height={30}
+              fillColor={color}
+              strokeWidth={1.2}
+            />
           ),
         }}
       />
