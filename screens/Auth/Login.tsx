@@ -54,6 +54,7 @@ const Login = () => {
     const isPasswordValid = validatePassword(password);
 
     if (isEmailValid && isPasswordValid) {
+      navigation.navigate("MainApp");
       // Add your login logic here
       console.log("Login successful");
     }

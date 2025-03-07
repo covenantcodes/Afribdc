@@ -56,7 +56,7 @@ const SetUpPin = () => {
       setError("Please enter a complete 4-digit PIN");
       return;
     }
-    navigation.navigate("Home");
+    navigation.navigate("MainApp");
   };
 
   return (

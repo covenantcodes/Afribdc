@@ -11,6 +11,8 @@ import ForgotPassword from "../screens/Auth/ForgotPassword";
 import PersonalInfo from "../screens/Auth/PersonalInfo";
 import SetUpPin from "../screens/Auth/SetUpPin";
 import Home from "../screens/Home/Home";
+import BottomTabNavigator from "./BottomTabNavigator";
+import ForgotOtp from "../screens/Auth/ForgotOtp";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -26,10 +28,15 @@ export type RootStackParamList = {
     email: string;
   };
 
+  ForgotOtp: {
+    email: string;
+  };
+
   ForgotPassword: undefined;
   PersonalInfo: undefined;
   SetUpPin: undefined;
   Home: undefined;
+  MainApp: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -55,9 +62,16 @@ export default function AppNavigator() {
         <Stack.Screen name="VerifyPhone" component={VerifyPhone} />
         <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="ForgotOtp" component={ForgotOtp} />
         <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
         <Stack.Screen name="SetUpPin" component={SetUpPin} />
         <Stack.Screen name="Home" component={Home} />
+
+        <Stack.Screen
+          name="MainApp"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

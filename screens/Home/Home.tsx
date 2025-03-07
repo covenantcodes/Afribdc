@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../../utils/fonts";
@@ -13,9 +20,23 @@ import Fund from "../../components/svgs/Fund";
 import Swap from "../../components/svgs/Swap";
 import Sell from "../../components/svgs/Sell";
 import Withdraw from "../../components/svgs/Withdraw";
+import { exchangeRateData } from "../../data/data";
+import ExchangeRateCard from "../../components/ExchangeRateCard";
 
 const Home = () => {
   const [showBalance, setShowBalance] = useState(true);
+
+  const renderExchangeRateItem = ({ item }: { item: ExchangeRateCardData }) => (
+    <ExchangeRateCard
+      profileImage={item.profileImage}
+      username={item.username}
+      fromCurrency={item.fromCurrency}
+      toCurrency={item.toCurrency}
+      rate={item.rate}
+      type={item.type}
+    />
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -54,7 +75,7 @@ const Home = () => {
       >
         <View style={styles.balanceContainer}>
           <View style={styles.walletContainer}>
-            <Wallet width={50} height={50} />
+            <Wallet width={50} height={50} fillColor={colors.white} />
           </View>
 
           <View style={styles.balanceInfo}>
@@ -104,6 +125,25 @@ const Home = () => {
           </View>
           <Text style={styles.actionButtonText}>Withdraw</Text>
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.sellOffersContainer}>
+        <View style={styles.sellOffersHeader}>
+          <Text style={styles.sellOffersTitle}>Sell Offers</Text>
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={styles.seeAllText}>See all</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.exchangeRatesContainer}>
+          <FlatList
+            data={exchangeRateData.slice(0, 5)}
+            renderItem={renderExchangeRateItem}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -227,6 +267,34 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.sm,
     color: colors.deepBlue,
     textAlign: "center",
+  },
+  sellOffersContainer: {
+    marginTop: 24,
+    paddingHorizontal: 20,
+  },
+  sellOffersHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  sellOffersTitle: {
+    fontFamily: FONTFAMILY.medium,
+    fontSize: FONTSIZE.lg,
+    color: colors.deepBlue,
+  },
+  seeAllText: {
+    fontFamily: FONTFAMILY.medium,
+    fontSize: FONTSIZE.md,
+    color: colors.blue,
+  },
+  exchangeRatesContainer: {
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    padding: 16,
+  },
+  separator: {
+    height: 12,
   },
 });
 
