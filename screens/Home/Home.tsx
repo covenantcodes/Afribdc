@@ -1,12 +1,16 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { useState } from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../../utils/fonts";
 import NotificationBell from "../../components/svgs/NotificationBell";
 import images from "../../utils/images";
 import CustomButton from "../../components/CustomButton";
+import LinearGradient from "react-native-linear-gradient";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Home = () => {
+  const [showBalance, setShowBalance] = useState(true);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -40,6 +44,37 @@ const Home = () => {
           Verify your identity to access full features
         </Text>
       </View>
+
+      <LinearGradient
+        colors={[colors.secondaryColor, colors.primaryColor]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.balanceCard}
+      >
+        <View style={styles.balanceContainer}>
+          <MaterialCommunityIcons
+            name="wallet-outline"
+            size={24}
+            color={colors.white}
+          />
+
+          <View style={styles.balanceInfo}>
+            <Text style={styles.balanceLabel}>Current Balance</Text>
+            <View style={styles.amountContainer}>
+              <Text style={styles.balanceAmount}>
+                {showBalance ? "CAD 0.00" : "• • • • •"}
+              </Text>
+              <TouchableOpacity onPress={() => setShowBalance(!showBalance)}>
+                <MaterialCommunityIcons
+                  name={showBalance ? "eye-outline" : "eye-off-outline"}
+                  size={20}
+                  color={colors.white}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 };
@@ -97,6 +132,38 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.medium,
     fontSize: FONTSIZE.lg,
     color: colors.gray2,
+  },
+
+  balanceCard: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    borderRadius: 12,
+    padding: 20,
+  },
+  balanceContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 12,
+  },
+  balanceInfo: {
+    flex: 1,
+  },
+  balanceLabel: {
+    fontFamily: FONTFAMILY.regular,
+    fontSize: FONTSIZE.md,
+    color: colors.white,
+    opacity: 0.8,
+    marginBottom: 4,
+  },
+  amountContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  balanceAmount: {
+    fontFamily: FONTFAMILY.semibold,
+    fontSize: FONTSIZE.xl,
+    color: colors.white,
   },
 });
 
