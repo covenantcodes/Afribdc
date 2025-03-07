@@ -1,20 +1,33 @@
 import { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ScreenHeader from "../../components/ScreenHeader";
 import CustomOtpInput from "../../components/CustomOtpInput";
 import CustomButton from "../../components/CustomButton";
 import colors from "../../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../../utils/fonts";
-import { useNavigation } from "@react-navigation/native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "../../navigation/AuthNavigator";
 
 type VerifyEmailNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "VerifyEmail"
 >;
+
+type VerifyEmailScreenRouteProp = RouteProp<RootStackParamList, "VerifyEmail">;
+
+export type RootStackParamList = {
+  PersonalInfo: undefined;
+  VerifyEmail: {
+    email: string;
+  };
+};
 
 const VerifyEmail = () => {
   const navigation = useNavigation<VerifyEmailNavigationProp>();
@@ -49,15 +62,8 @@ const VerifyEmail = () => {
       setError("Please enter complete verification code");
       return;
     }
-  };
 
-  const formatPhoneNumber = (number: string) => {
-    if (number.length <= 3) return number;
-    if (number.length <= 6) return `(${number.slice(0, 3)}) ${number.slice(3)}`;
-    return `(${number.slice(0, 3)}) ${number.slice(3, 6)}-${number.slice(
-      6,
-      10
-    )}`;
+    navigation.navigate("PersonalInfo");
   };
 
   const formatTime = (seconds: number) => {
@@ -69,7 +75,7 @@ const VerifyEmail = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenHeader title="Verify Email" showBackButton />
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <Text style={styles.title}>Please verify your email address</Text>
         <Text style={styles.subtitle}>
           We have sent a 6-digit verification code to {"\n"} {email} {"\n"}
@@ -102,7 +108,7 @@ const VerifyEmail = () => {
 
         <View style={styles.buttonContainer}>
           <CustomButton
-            title="Verify"
+            title="Submit"
             onPress={handleVerify}
             width="100%"
             borderRadius={25}
@@ -110,7 +116,7 @@ const VerifyEmail = () => {
             textStyle={{ fontSize: FONTSIZE.lg }}
           />
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -136,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.md,
     fontFamily: FONTFAMILY.medium,
     color: colors.gray2,
-    marginVertical: 30,
+    marginVertical: 20,
     textAlign: "center",
   },
   buttonContainer: {

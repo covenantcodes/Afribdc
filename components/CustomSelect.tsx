@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -9,21 +9,23 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  TextInput,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import type { MaterialIcons as MaterialIconsType } from "@expo/vector-icons";
 import colors from "../utils/colors";
 import { FONTFAMILY, FONTSIZE } from "../utils/fonts";
 
 interface SelectItem {
   label: string;
-  value: string | number;
+  value: string;
 }
 
 interface CustomSelectProps {
   label?: string;
   items: SelectItem[];
-  value?: string | number;
-  onValueChange: (value: string | number) => void;
+  value: string;
+  onValueChange: (value: string) => void;
   width?: number | string;
   height?: number;
   borderRadius?: number;
@@ -37,6 +39,12 @@ interface CustomSelectProps {
   selectStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   errorStyle?: StyleProp<TextStyle>;
+  iconComponent?: React.ReactNode;
+  iconName?: keyof typeof MaterialIconsType.glyphMap;
+  iconSize?: number;
+  iconColor?: string;
+  showSearch?: boolean;
+  searchPlaceholder?: string;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -57,11 +65,25 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   selectStyle,
   labelStyle,
   errorStyle,
+  iconComponent,
+  iconName = "arrow-drop-down",
+  iconSize = 24,
+  iconColor = colors.gray,
+  showSearch = false,
+  searchPlaceholder = "Search...",
 }) => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const selectedItem = items.find((item) => item.value === value);
   const widthStyle =
     typeof width === "number" ? width : width === "100%" ? "100%" : "auto";
+
+  const filteredItems = useCallback(() => {
+    if (!searchQuery.trim()) return items;
+    return items.filter((item) =>
+      item.label.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [items, searchQuery]);
 
   return (
     <View style={[styles.container, { width: widthStyle }, containerStyle]}>
@@ -93,11 +115,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         <Text style={[styles.selectText, !selectedItem && styles.placeholder]}>
           {selectedItem ? selectedItem.label : placeholder}
         </Text>
-        <MaterialIcons
-          name={isOpen ? "keyboard-arrow-up" : "keyboard-arrow-down"}
-          size={24}
-          color={colors.gray}
-        />
+        {iconComponent || (
+          <MaterialIcons
+            name={isOpen ? "arrow-drop-up" : iconName}
+            size={iconSize}
+            color={iconColor}
+          />
+        )}
       </TouchableOpacity>
 
       {errorMessage && (
@@ -108,11 +132,27 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         <TouchableOpacity
           style={styles.modalOverlay}
           activeOpacity={1}
-          onPress={() => setIsOpen(false)}
+          onPress={() => {
+            setIsOpen(false);
+            setSearchQuery("");
+          }}
         >
           <View style={[styles.modalContent, { width: widthStyle }]}>
+            {showSearch && (
+              <View style={styles.searchContainer}>
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder={searchPlaceholder}
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                />
+                <MaterialIcons name="search" size={20} color={colors.gray2} />
+              </View>
+            )}
             <FlatList
-              data={items}
+              data={filteredItems()}
               keyExtractor={(item) => item.value.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity
@@ -123,6 +163,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                   onPress={() => {
                     onValueChange(item.value);
                     setIsOpen(false);
+                    setSearchQuery("");
                   }}
                 >
                   <Text
@@ -176,14 +217,14 @@ const styles = StyleSheet.create({
     color: colors.gray,
   },
   shadow: {
-    shadowColor: "#000",
+    shadowColor: "#b3b3b3",
     shadowOffset: {
       width: 0,
       height: 4,
     },
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
-    elevation: 9,
+    elevation: 5,
   },
   selectError: {
     borderColor: colors.red,
@@ -222,6 +263,22 @@ const styles = StyleSheet.create({
   selectedOptionText: {
     color: colors.primaryColor,
     fontFamily: FONTFAMILY.medium,
+  },
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray + "20",
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+    fontFamily: FONTFAMILY.regular,
+    fontSize: FONTSIZE.sm,
+    color: colors.black,
+    marginRight: 8,
   },
 });
 

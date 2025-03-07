@@ -7,6 +7,10 @@ import Login from "../screens/Auth/Login";
 import VerifyPhone from "../screens/Auth/VerifyPhone";
 import VerifyEmail from "../screens/Auth/VerifyEmail";
 import Register from "../screens/Auth/Register";
+import ForgotPassword from "../screens/Auth/ForgotPassword";
+import PersonalInfo from "../screens/Auth/PersonalInfo";
+import SetUpPin from "../screens/Auth/SetUpPin";
+import Home from "../screens/Home/Home";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -21,6 +25,11 @@ export type RootStackParamList = {
   VerifyEmail: {
     email: string;
   };
+
+  ForgotPassword: undefined;
+  PersonalInfo: undefined;
+  SetUpPin: undefined;
+  Home: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -45,6 +54,10 @@ export default function AppNavigator() {
 
         <Stack.Screen name="VerifyPhone" component={VerifyPhone} />
         <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+        <Stack.Screen name="SetUpPin" component={SetUpPin} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

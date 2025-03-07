@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   label: {
-    fontFamily: FONTFAMILY.regular,
+    fontFamily: FONTFAMILY.medium,
     fontSize: FONTSIZE.sm,
     color: colors.black,
   },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
-    elevation: 8,
+    elevation: 5,
   },
   input: {
     paddingHorizontal: 16,

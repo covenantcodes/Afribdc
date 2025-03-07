@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ScreenHeader from "../../components/ScreenHeader";
 import CustomOtpInput from "../../components/CustomOtpInput";
@@ -68,7 +74,7 @@ const VerifyPhone = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenHeader title="Verify Phone" showBackButton />
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <Text style={styles.title}>Please verify your phone {"\n"} number</Text>
         <Text style={styles.subtitle}>
           We have sent a 6-digit verification code to {"\n"}
@@ -102,7 +108,7 @@ const VerifyPhone = () => {
 
         <View style={styles.buttonContainer}>
           <CustomButton
-            title="Verify"
+            title="Submit"
             onPress={handleVerify}
             width="100%"
             borderRadius={25}
@@ -110,7 +116,7 @@ const VerifyPhone = () => {
             textStyle={{ fontSize: FONTSIZE.lg }}
           />
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -136,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.md,
     fontFamily: FONTFAMILY.medium,
     color: colors.gray2,
-    marginVertical: 30,
+    marginVertical: 20,
     textAlign: "center",
   },
   buttonContainer: {
