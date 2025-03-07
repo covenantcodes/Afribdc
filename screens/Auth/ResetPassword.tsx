@@ -67,7 +67,7 @@ const ResetPassword = () => {
     const isConfirmPasswordValid = validateConfirmPassword(confirmPassword);
 
     if (isPasswordValid && isConfirmPasswordValid) {
-      navigation.navigate("Login");
+      navigation.navigate("MainApp");
     }
   };
 

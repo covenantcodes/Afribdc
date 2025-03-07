@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../utils/colors";
@@ -23,6 +24,16 @@ import Withdraw from "../../components/svgs/Withdraw";
 import { exchangeRateData } from "../../data/data";
 import ExchangeRateCard from "../../components/ExchangeRateCard";
 
+type ExchangeRateCardData = {
+  id: string;
+  profileImage: any;
+  username: string;
+  fromCurrency: string;
+  toCurrency: string;
+  rate: number;
+  type: string;
+};
+
 const Home = () => {
   const [showBalance, setShowBalance] = useState(true);
 
@@ -39,112 +50,114 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.profileContainer}>
-          <Image source={images.profile} style={styles.profileImage} />
-        </View>
-
-        <View style={styles.welcomeContainer}>
-          <Text style={styles.welcomeText}>Welcome back, Walter</Text>
-        </View>
-
-        <View style={styles.notificationContainer}>
-          <NotificationBell width={30} height={30} color={colors.deepBlue} />
-        </View>
-      </View>
-
-      <View style={styles.actionButtonContainer}>
-        <CustomButton
-          title="Complete ID Check "
-          backgroundColor={colors.orange}
-          onPress={() => {}}
-        />
-      </View>
-
-      <View style={styles.actionTextContainer}>
-        <Text style={styles.actionText}>
-          Verify your identity to access full features
-        </Text>
-      </View>
-
-      <LinearGradient
-        colors={[colors.secondaryColor, colors.primaryColor]}
-        start={{ x: -0.3, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.balanceCard}
-      >
-        <View style={styles.balanceContainer}>
-          <View style={styles.walletContainer}>
-            <Wallet width={50} height={50} fillColor={colors.white} />
+      <ScrollView>
+        <View style={styles.header}>
+          <View style={styles.profileContainer}>
+            <Image source={images.profile} style={styles.profileImage} />
           </View>
 
-          <View style={styles.balanceInfo}>
-            <Text style={styles.balanceLabel}>Current Balance</Text>
-            <View style={styles.amountContainer}>
-              <Text style={styles.balanceAmount}>
-                {showBalance ? "CAD 0.00" : "• • • • • • • •"}
-              </Text>
-              <TouchableOpacity onPress={() => setShowBalance(!showBalance)}>
-                <MaterialCommunityIcons
-                  name={showBalance ? "eye-outline" : "eye-off-outline"}
-                  size={20}
-                  color={colors.white}
-                  style={{ marginLeft: 12 }}
-                />
-              </TouchableOpacity>
+          <View style={styles.welcomeContainer}>
+            <Text style={styles.welcomeText}>Welcome back, Walter</Text>
+          </View>
+
+          <View style={styles.notificationContainer}>
+            <NotificationBell width={30} height={30} color={colors.deepBlue} />
+          </View>
+        </View>
+
+        <View style={styles.actionButtonContainer}>
+          <CustomButton
+            title="Complete ID Check "
+            backgroundColor={colors.orange}
+            onPress={() => {}}
+          />
+        </View>
+
+        <View style={styles.actionTextContainer}>
+          <Text style={styles.actionText}>
+            Verify your identity to access full features
+          </Text>
+        </View>
+
+        <LinearGradient
+          colors={[colors.secondaryColor, colors.primaryColor]}
+          start={{ x: -0.3, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.balanceCard}
+        >
+          <View style={styles.balanceContainer}>
+            <View style={styles.walletContainer}>
+              <Wallet width={50} height={50} fillColor={colors.white} />
+            </View>
+
+            <View style={styles.balanceInfo}>
+              <Text style={styles.balanceLabel}>Current Balance</Text>
+              <View style={styles.amountContainer}>
+                <Text style={styles.balanceAmount}>
+                  {showBalance ? "CAD 0.00" : "• • • • • • • •"}
+                </Text>
+                <TouchableOpacity onPress={() => setShowBalance(!showBalance)}>
+                  <MaterialCommunityIcons
+                    name={showBalance ? "eye-outline" : "eye-off-outline"}
+                    size={20}
+                    color={colors.white}
+                    style={{ marginLeft: 12 }}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </LinearGradient>
+        </LinearGradient>
 
-      <View style={styles.actionsContainer}>
-        <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
-          <View style={styles.iconBox}>
-            <Fund width={28} height={28} color={colors.primaryColor} />
-          </View>
-          <Text style={styles.actionButtonText}>Fund Wallet</Text>
-        </TouchableOpacity>
+        <View style={styles.actionsContainer}>
+          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
+            <View style={styles.iconBox}>
+              <Fund width={25} height={25} color={colors.primaryColor} />
+            </View>
+            <Text style={styles.actionButtonText}>Fund Wallet</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
-          <View style={styles.iconBox}>
-            <Swap width={34} height={34} color={colors.primaryColor} />
-          </View>
-          <Text style={styles.actionButtonText}>Swap</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
+            <View style={styles.iconBox}>
+              <Swap width={28} height={28} color={colors.primaryColor} />
+            </View>
+            <Text style={styles.actionButtonText}>Swap</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
-          <View style={styles.iconBox}>
-            <Sell width={54} height={54} color={colors.primaryColor} />
-          </View>
-          <Text style={styles.actionButtonText}>Buy/Sell</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
+            <View style={styles.iconBox}>
+              <Sell width={38} height={38} color={colors.primaryColor} />
+            </View>
+            <Text style={styles.actionButtonText}>Buy/Sell</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
-          <View style={styles.iconBox}>
-            <Withdraw width={34} height={34} color={colors.primaryColor} />
-          </View>
-          <Text style={styles.actionButtonText}>Withdraw</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.sellOffersContainer}>
-        <View style={styles.sellOffersHeader}>
-          <Text style={styles.sellOffersTitle}>Sell Offers</Text>
-          <TouchableOpacity onPress={() => {}}>
-            <Text style={styles.seeAllText}>See all</Text>
+          <TouchableOpacity style={styles.actionButton} onPress={() => {}}>
+            <View style={styles.iconBox}>
+              <Withdraw width={28} height={28} color={colors.primaryColor} />
+            </View>
+            <Text style={styles.actionButtonText}>Withdraw</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.exchangeRatesContainer}>
-          <FlatList
-            data={exchangeRateData.slice(0, 5)}
-            renderItem={renderExchangeRateItem}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
-            showsVerticalScrollIndicator={false}
-          />
+        <View style={styles.sellOffersContainer}>
+          <View style={styles.sellOffersHeader}>
+            <Text style={styles.sellOffersTitle}>Sell Offers</Text>
+            <TouchableOpacity onPress={() => {}}>
+              <Text style={styles.seeAllText}>See all</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.exchangeRatesContainer}>
+            <FlatList
+              data={exchangeRateData.slice(0, 5)}
+              renderItem={renderExchangeRateItem}
+              keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={() => <View style={styles.separator} />}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -190,7 +203,7 @@ const styles = StyleSheet.create({
   },
 
   actionButtonContainer: {
-    width: "40%",
+    width: "60%",
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
@@ -251,11 +264,11 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     alignItems: "center",
-    width: "22%",
+    width: "20%",
   },
   iconBox: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     backgroundColor: colors.white,
     borderRadius: 12,
     justifyContent: "center",
